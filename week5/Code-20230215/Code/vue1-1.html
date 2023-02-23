@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+</head>
+
+<body>
+    <section class="section" id="app">
+        <div class="container">
+            <h1 class="title">
+                {{ title1 }}
+            </h1>
+            <p class="notification">
+                <span v-bind:title="content">
+                    Hover your mouse over me for a few seconds
+                    to see my dynamically bound title!
+                </span>
+            </p>
+            <h1 class="title">
+                {{ title2 }}
+            </h1>
+            <p class="notification is-primary">
+                <button
+                    class="button" 
+                    v-bind:disabled="bool1 && bool2" 
+                    v-on:click="buttonTxt = 'You can click me now.'; bool1 = true; bool2 = true;"
+                >{{buttonTxt + " " + title2}}</button>
+            </p>
+            <p class="notification">
+                <span>{{'My first website with Vue! @ ' + new Date().toLocaleString()}}</span>
+            </p>
+        </div>
+    </section>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                title1: 'V-bind directive',
+                content: 'My first website with Vue! @ ' + new Date().toLocaleString(),
+                title2: 'JS Expression',
+                bool1: true,
+                bool2: true,
+                buttonTxt: "I am a button ... click me if you can!"
+            }
+        });
+    </script>
+</body>
+
+</html>

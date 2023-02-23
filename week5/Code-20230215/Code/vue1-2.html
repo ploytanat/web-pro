@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.1/css/bulma.min.css">
+</head>
+
+<body>
+
+    <section class="section" id="app">
+        <div class="container">
+            <h1 class="title">
+                Conditional rendering
+            </h1>
+            <h1 class="subtitle" v-if="seen">
+                Now you see me
+            </h1>
+            <!-- <h1 class="subtitle" v-else>
+                I am invisible now!
+            </h1> -->
+            <br><br>
+            <h1 class="title">
+                Controlling reusable elements with "key"
+            </h1>
+            <div class="content">
+                <template v-if="loginType === 'username'">
+                    <label>Username</label>
+                    <input class="input" placeholder="Enter your username" key="username">
+                </template>
+                <template v-else>
+                    <label>Email</label>
+                    <input class="input" placeholder="Enter your email address" key="email">
+                </template>
+            </div>
+        </div>
+    </section>
+
+    <script>
+        var app = new Vue({
+            el: '#app',
+            data: {
+                seen: true,
+                loginType: 'username',
+            }
+        })
+    </script>
+</body>
+
+</html>
