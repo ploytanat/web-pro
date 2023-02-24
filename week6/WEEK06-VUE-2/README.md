@@ -1,4 +1,4 @@
-# WEEK06-VUE-2 Part 1
+# WEEK06-VUE-2 Part 1,2
 
 แบบฝึกหัดสัปดาห์ที่ 6 Vue JS (2) - Part 1
 
