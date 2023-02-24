@@ -127,19 +127,19 @@
                 <div class="column">
                     <label class="label">Firstname</label>
                     <div class="control">
-                        <input class="input" type="text">
+                        <input class="input" type="text" v-model="firstname">
                     </div>
                 </div>
                 <div class="column">
                     <label class="label">Lastname</label>
                     <div class="control">
-                        <input class="input" type="text">
+                        <input class="input" type="text" v-model="lastname">
                     </div>
                 </div>
                 <div class="column">
                     <label class="label">Tel</label>
                     <div class="control">
-                        <input class="input" type="text">
+                        <input class="input" type="text" v-model="phoneNumber">
                     </div>
                 </div>
             </div>
@@ -153,7 +153,7 @@
                     <label class="label">จังหวัด</label>
                     <div class="select" >
                         <select  v-model="selectedProvince">
-                            <option v-for="(item,index) in province"  :key="item.id" :value="item.id ">
+                            <option v-for="item in province"  :key="item.id" :value="item.id ">
                                 {{ item.name_th }}
                             </option>
                         </select>
@@ -162,8 +162,8 @@
                 <div class="column">
                     <label class="label">อำเภอ</label>
                     <div class="select">
-                        <select >
-                            <option v-for="item in amphures" :key="item.id" :value="item.id">
+                        <select v-model="selectedAmphure">
+                            <option v-for="item in fileredAmphures" :key="item.id" :value="item.id">
                                 {{ item.name_th }}
                             </option>
                         </select>
@@ -172,8 +172,8 @@
                 <div class="column">
                     <label class="label">ตำบล</label>
                     <div class="select">
-                        <select >
-                            <option v-for="item in tambons" :key="item.id" :value="item.id">
+                        <select v-model="selectedTambon">
+                            <option v-for="item in fileredTambons" :key="item.id" :value="item.id">
                                 {{ item.name_th }}
                             </option>
                         </select>
@@ -203,8 +203,8 @@
                                 <th colspan="4" style="text-align: center;"> Order Detail </th>
                             </tr>
                             <tr>
-                                <th colspan="2">ชื่อ : {{fname}} {{lname}} </th>
-                                <th colspan="2">ที่อยู่ : {{address}}</th>
+                                <th colspan="2">ชื่อ : {{firstname}} {{lastname}} </th>
+                                <th colspan="2">ที่อยู่ : {{showProvince}} {{showAmphure}} {{showTambon}}</th>
                             </tr>
                             <tr>
                                 <th colspan="4" style="text-align: center;">รายการสินค้า</th>
@@ -252,13 +252,53 @@
                     amphures: amphures, // ข้อมูลอำเภอ
                     tambons: tambons, // ข้อมูลตำบล
                     selectedProvince:"",
+                    selectedAmphure:"",
+                    selectedTambon:"",
+                    firstname:"",
+                    lastname:"",
+                    phoneNumber:"",
+
                 },
                 created(){
                     this.cart = JSON.parse(localStorage.getItem('cart'));
                     this.total = JSON.parse(localStorage.getItem('total'));
                 },
-            })
+                computed: {
+                    fileredAmphures(){
+                        const selectAmphureFromProvince = this.selectedProvince;
+                        if(this.selectedProvince){
 
+                        return amphures.filter(aumphur => aumphur.province_id === this.selectedProvince)
+
+                        }
+                        else{
+                            return amphures
+                        }
+                    },
+                    fileredTambons(){
+                        
+                        if(this.selectedAmphure){
+                        return tambons.filter(tambon => tambon.amphure_id === this.selectedAmphure)
+                        }
+                        else{
+                            return tambons
+                        }
+                    },
+                    showProvince(){
+                        const nameth = province.find( o => o.id === this.selectedProvince)
+                        return nameth ? nameth.name_th  :null;
+                        //ย่อif-else
+                        },
+                    showAmphure(){
+                        const nameth = amphures.find( o => o.id === this.selectedAmphure)
+                        return nameth ? nameth.name_th  :null;
+                    },
+                    showTambon(){
+                        const nameth = tambons.find( o => o.id === this.selectedTambon)
+                        return nameth ? nameth.name_th  :null;
+                    }
+                    },     
+            })
         </script>
 
 </html>
